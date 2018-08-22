@@ -18,7 +18,27 @@ class Person
 end
 
 p = Person.new
-p.send(:get_name)
-p.send(:get_age)
-p.get_address
-p.get_detail
+p.send(:get_name) # return "Person Get Name"
+p.send(:get_age) # return "Person Get Age"
+p.get_address # return "Person address"
+p.get_detail # return "You called method get_detail, which is not defined"
+
+
+
+class User
+
+  def initialize(name, age)
+    @name = name
+    @age = age
+    self.class.send(:define_singleton_method,"#{name}") { "#{name} age is #{age}" }  
+  end
+
+  def method_missing(name)
+    p "No User #{name}"
+  end
+end
+
+
+User.new("vinay", 16)
+User.vinay # return vinay age is 16
+User.blabla # returns No User blabla
