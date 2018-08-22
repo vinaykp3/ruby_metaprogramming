@@ -30,15 +30,11 @@ class User
   def initialize(name, age)
     @name = name
     @age = age
-    self.class.send(:define_singleton_method,"#{name}") { "#{name} age is #{age}" }  
+    self.class.send(:define_singleton_method,"#{name}") { p "#{name} age is #{age}" }  
   end
 
-  def method_missing(name)
-    p "No User #{name}"
-  end
 end
 
 
 User.new("vinay", 16)
 User.vinay # return vinay age is 16
-User.blabla # returns No User blabla
